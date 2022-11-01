@@ -1,0 +1,17 @@
+getTextFile(filename: string) {
+    // The Observable returned by get() is of type Observable<string>
+    // because a text response was specified.
+    // There's no need to pass a <string> type parameter to get().
+    return this.http.get(filename, {responseType: 'text'})
+      .pipe(
+        tap( // Log the result or error
+        {
+          next: (data) => this.log(filename, data),
+          error: (error) => this.logError(filename, error)
+        }
+        )
+      );
+  }
+
+
+  const change = document.querySelector('')
