@@ -1,17 +1,22 @@
-const WeatherForm = document.getElementById("cityName") 
-const weatherByDay = [[],[], [], [],]
+const weatherForm = document.getElementById("cityName") 
+const weatherByDay = [[],[], [], []]
 const container = document.querySelector('.container')
+
+weatherForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+    console.log(event.value)
+})
 
 //always start by the fetch event if you don't know how to do it
 //fetch it's like call someone with the phone 
 const getWeather = (cityName) =>{
-    fetch("api.openweathermap.org/data/2.5/forecast?lat=50.8465573&lon=4.3517103&appid=2f18dd87e2e6152f8d814353efa9564a")
+    fetch("http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=2f18dd87e2e6152f8d814353efa9564a")
      //put your Api key
     .then(response => response.json())//json = Javascript
-    .then((data) =>{
+    .then((data) => {
     
         console.log(data[0].lat, data[0].lon) 
-        fetch(    fetch("api.openweathermap.org/data/2.5/forecast?lat=50.8465573&lon=4.3517103&appid=2f18dd87e2e6152f8d814353efa9564a")
+        fetch( fetch("api.openweathermap.org/data/2.5/forecast?lat=[0].lat&lon=$(data[0].lon)&appid=2f18dd87e2e6152f8d814353efa9564a")
         .then(response => response.json()
         .then((data) => {
             let i=0
@@ -21,7 +26,9 @@ const getWeather = (cityName) =>{
                 if(i<8){
                 weatherByDay[0].push(weatherEntry)
 
-                }else{
+                }
+                
+                else{
                     weatherByDay[0].push(weatherEntry)
 
                     c++
